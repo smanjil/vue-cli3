@@ -1,7 +1,7 @@
 <template>
   <div class="about">
     <h1>This is an about page for</h1>
-    <Ether msg="Ethereum Lovers...." />
+    <Ether msg="Vue Transitions...." />
   </div>
 </template>
 
