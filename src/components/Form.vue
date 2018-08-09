@@ -7,7 +7,7 @@
          </div>
 
          <div class="panel-body">
-            <form>
+            <!-- <form enctype="multipart/form-data"> -->
                <div class="form-group">
                   <label for="name">Name</label>
                   <input type="text" class="form-control" placeholder="Name" v-model="name">
@@ -20,7 +20,7 @@
 
                <div class="form-group">
                    <label class="file-label">
-                        <input class="file-input" type="file" @blur="getFileName">
+                        <input class="file-input" type="file" id="file" ref="file" v-on:change="getFileName">
                         <span class="file-cta">
                             <span class="file-icon">
                                 <i class="fa fa-upload"></i>
@@ -35,8 +35,8 @@
                     </label>
                </div>
 
-               <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+               <button class="btn btn-primary" v-on:click="submitFile">Submit</button>
+            <!-- </form> -->
          </div>
       </div>
 
@@ -61,11 +61,31 @@
       },
 
       methods: {
-      getFileName (e) {
+        getFileName (e) {
             this.fpath = e.target.files[0];
             if (this.fpath){
                 this.fname = this.fpath.name;
             }
+        },
+
+        submitFile () {
+            let formData = new FormData();
+            formData.append('file', this.fpath);
+            console.log(formData);
+
+            this.axios.post('http://127.0.0.1:5000/api/post',
+              formData,
+              {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+              }
+            ).then(function(){
+              console.log('SUCCESS!!');
+            })
+            .catch(function(){
+              console.log('FAILURE!!');
+            });
         }
       }
    }
