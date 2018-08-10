@@ -26,5 +26,13 @@ def upload_file():
     return 'Worked'
 
 
+@app.route('/api/post/sentence', methods = ['POST'])
+@cross_origin()
+def upload_sentence():
+    sentence = request.values.get('sentence')
+    print (sentence)
+
+    return 'Worked'
+
 if __name__ == '__main__':
     app.run(debug=True)
